@@ -1,0 +1,44 @@
+cmake_minimum_required(VERSION 3.12)
+project(jdp LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include") 
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+
+set(SOURCES
+    "${SRC_DIR}/test.cpp"
+    "${SRC_DIR}/jtable.cpp"
+    "${SRC_DIR}/jobject.cpp"
+    "${SRC_DIR}/jserializer.cpp"
+    "${SRC_DIR}/jnode/jobjectnode.cpp"
+    "${SRC_DIR}/jnode/jtablenode.cpp"
+)
+
+set(HEADERS
+    "${INCLUDE_DIR}/jnode/ijbasic.h"
+    "${INCLUDE_DIR}/jnode/ijobject.h"
+    "${INCLUDE_DIR}/jnode/ijnode.h"
+    "${INCLUDE_DIR}/jnode/jobjectnode.h"
+    "${INCLUDE_DIR}/jnode/jintnode.h"
+    "${INCLUDE_DIR}/jnode/jfloatnode.h"
+    "${INCLUDE_DIR}/jnode/jstringnode.h"
+    "${INCLUDE_DIR}/jnode/jboolnode.h"
+    "${INCLUDE_DIR}/jnode/jtablenode.h"    
+    "${INCLUDE_DIR}/jtypes.h"
+    "${INCLUDE_DIR}/jtable.h"
+    "${INCLUDE_DIR}/jobject.h"
+    "${INCLUDE_DIR}/jserializer.h"
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+
+target_include_directories(${PROJECT_NAME} PRIVATE 
+    ${INCLUDE_DIR}
+    ${INCLUDE_DIR}/jnode
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE pthread)
